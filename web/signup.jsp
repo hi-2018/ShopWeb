@@ -10,21 +10,32 @@
 <head>
     <title>注册</title>
     <script type="text/javascript">
-
-        function checkpw() {
-            var check = false;
+        function checkPw() {
+            var checkPw = false;
             var password = document.getElementById("password").value;
             var pwdc = document.getElementById("pwAgain").value;
             if (password != pwdc) {
-                document.getElementById("warning").innerHTML = "  两次输入密码不一致";
-                check = false;
+                document.getElementById("pwWarning").innerHTML = "  两次输入密码不一致";
+                checkPw = false;
             } else {
-                document.getElementById("warining").innerHTML = "  √";
-                check = true;
+                document.getElementById("pwWarining").innerHTML = "  √";
+                checkPw = true;
             }
-            return check;
+            return checkPw;
         }
-
+        function checkE() {
+            var emailA=document.getElementById("emailAddr").value;
+            var reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            var checkE=false;
+            if (reg.test(emailA)) {
+                document.getElementById("emailWarining").innerHTML = "  √";
+                checkE = true;
+            }else {
+                document.getElementById("emailWarning").innerHTML = "  邮箱格式错误";
+                checkE = false;
+            }
+            return checkE;
+        }
     </script>
 </head>
 <center>
@@ -36,7 +47,9 @@
     <table>
         <tr>
             <td>邮箱地址:</td>
-            <td><input name="emailAddr" type="text"></td>
+            <td><input name="emailAddr" id="emailAddr" type="text" onchange="checkE()">
+                <span id="emailWarning" ></span>
+            </td>
         </tr>
         <tr>
             <td>用户名:</td>
@@ -48,8 +61,9 @@
         </tr>
         <tr>
             <td>确认密码:</td>
-            <td><input id="pwAgain"name="pwAgain" type="password" onchange="checkpw()">
-               <span id="warning" ></span></td><!-- 使用onchange事件当输入框改变执行，onblur为什么？-->
+            <td><input id="pwAgain"name="pwAgain" type="password" onchange="checkPw()">
+               <span id="pwWarning" ></span><!-- 使用onchange事件当输入框改变执行，onblur为什么？-->
+            </td>
         </tr>
         <tr>
             <td>男:<input name="gender" type="radio"value="M" checked="checked"></td>
